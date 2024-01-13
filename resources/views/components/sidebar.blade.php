@@ -1,8 +1,12 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
+        <br>
         <div class="sidebar-brand">
-            <a href="index.html">Online Shop</a>
+            <a href="index.html">
+                <h6 class="text-dark">Online Shop Victory Jerseys</h6>
+            </a>
         </div>
+        <br>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="index.html">St</a>
         </div>
