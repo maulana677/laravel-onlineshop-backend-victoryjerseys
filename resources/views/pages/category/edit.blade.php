@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'Edit Categories')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,21 +16,22 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Edit Users</h1>
+                <h1>Edit Category</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">All Users</a></div>
-                    <div class="breadcrumb-item">Edit Users</div>
+                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">All Category</a></div>
+                    <div class="breadcrumb-item">Edit Category</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Users</h2>
-
-
+                <h2 class="section-title">Category</h2>
+                <p class="section-lead">
+                    You can update Category.
+                </p>
 
                 <div class="card">
-                    <form action="{{ route('user.update', $user) }}" method="POST">
+                    <form action="{{ route('category.update', $category) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -42,71 +43,37 @@
                                 <input type="text"
                                     class="form-control @error('name')
                                 is-invalid
-                            @enderror"
-                                    name="name" value="{{ $user->name }}">
+                                @enderror"
+                                    name="name" value="{{ $category->name }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('email')
-                                is-invalid
-                            @enderror"
-                                    name="email" value="{{ $user->email }}">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control @error('password')
-                                is-invalid
-                            @enderror"
-                                        name="password">
-                                </div>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone" value="{{ $user->phone }}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Roles</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
-                                            @if ($user->roles == 'ADMIN') checked @endif>
-                                        <span class="selectgroup-button">Admin</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="STAFF" class="selectgroup-input"
-                                            @if ($user->roles == 'STAFF') checked @endif>
-                                        <span class="selectgroup-button">Staff</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="USER" class="selectgroup-input"
-                                            @if ($user->roles == 'USER') checked @endif>
-                                        <span class="selectgroup-button">User</span>
-                                    </label>
 
-                                </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control"
+                                    @error('description')
+                                is-invalid
+                                @enderror
+                                    name="description" style="height: 100px">{{ $category->description }}</textarea>
+                                @error('description')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Photo</label>
+                                <input type="file" class="form-control" name="image"
+                                    @error('image') is-invalid @enderror>
+
+                                @error('image')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="card-footer text-right">

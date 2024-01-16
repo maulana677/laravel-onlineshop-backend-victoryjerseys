@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Categories')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,18 +16,22 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Create Users</h1>
+                <h1>Add Category</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">All Users</a></div>
-                    <div class="breadcrumb-item">Create Users</div>
+                    <div class="breadcrumb-item"><a href="{{ route('user.index') }}">All Category</a></div>
+                    <div class="breadcrumb-item">Add Category</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Users</h2>
+                <h2 class="section-title">Category</h2>
+                <p class="section-lead">
+                    You can create Category.
+                </p>
+
                 <div class="card">
-                    <form action="{{ route('user.store') }}" method="POST">
+                    <form action="{{ route('category.store') }}" method="POST">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -38,7 +42,7 @@
                                 <input type="text"
                                     class="form-control @error('name')
                                 is-invalid
-                            @enderror"
+                                @enderror"
                                     name="name">
                                 @error('name')
                                     <div class="invalid-feedback">
@@ -46,60 +50,30 @@
                                     </div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('email')
+                                <label>Description</label>
+                                <textarea class="form-control"
+                                    @error('description')
                                 is-invalid
-                            @enderror"
-                                    name="email">
-                                @error('email')
+                                @enderror
+                                    name="description" style="height: 100px"></textarea>
+                                @error('description')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Photo</label>
+                                {{--  <div class="col-sm-9">  --}}
+                                <input type="file" class="form-control" name="image"
+                                    @error('image') is-invalid @enderror>
+                                {{--  </div>  --}}
+                                @error('image')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control @error('password')
-                                is-invalid
-                            @enderror"
-                                        name="password">
-                                </div>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="number" class="form-control" name="phone">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Roles</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="ADMIN" class="selectgroup-input"
-                                            checked="">
-                                        <span class="selectgroup-button">Admin</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="STAFF" class="selectgroup-input">
-                                        <span class="selectgroup-button">Staff</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="roles" value="USER" class="selectgroup-input">
-                                        <span class="selectgroup-button">User</span>
-                                    </label>
-                                </div>
                             </div>
                         </div>
                         <div class="card-footer text-right">

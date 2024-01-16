@@ -56,7 +56,6 @@ class ProductController extends Controller
         ]);
 
         toast('Product created successfully', 'success')->width('400');
-
         return redirect()->route('product.index');
     }
 
@@ -83,40 +82,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $this->validate($request, [
-            'image'     => 'image|mimes:jpeg,jpg,png|max:2048',
-            'name'     => 'nullable|min:3',
-            'description'   => 'nullable|min:3',
-            'price' => 'nullable|integer',
-            'stock' => 'nullable|integer',
-            'category_id' => 'nullable'
-        ]);
 
-        $product = Product::find($id);
+
+        $product = Product::findOrFail($id);
 
         //check if image is uploaded
         if ($request->hasFile('image')) {
 
-            //upload new image
-            $image = $request->file('image');
-            $image->storeAs('public/products', $image->hashName());
-
             //delete old image
             Storage::delete('public/products/' . $product->image);
 
-            //update post
-            Product::find($id)->update([
-                'image' => $image->hashName(),
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'stock' => $request->stock,
-                'category_id' => $request->category_id
-            ]);
+            //upload new image
+            $filename = time() . '.' . $request->image->extension();
+            $request->image->storeAs('public/products/', $filename);
+
+            $data = $request->except('image');
+            $data['image'] = $filename;
+            $product->update($data);
+        } else {
+            $product->update($request->all());
         }
 
         toast('Product updated successfully', 'success')->width('400');
-
         return redirect()->route('product.index');
     }
 

@@ -3,7 +3,7 @@
         <br>
         <div class="sidebar-brand">
             <a href="index.html">
-                <h6 class="text-dark">Online Shop Victory Jerseys</h6>
+                <h6 class="text-dark">Victory Jerseys Maulana Ikhsan</h6>
             </a>
         </div>
         <br>
@@ -12,18 +12,13 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                <ul class="dropdown-menu">
-                    <li class='{{ Request::is('dashboard-general-dashboard') ? 'active' : '' }}'>
-                        <a class="nav-link" href="{{ route('home') }}">General Dashboard</a>
-                    </li>
-                </ul>
+            <li class="nav-item {{ setSidebarActive(['home']) }}">
+                <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
 
             <li class="menu-header">Master</li>
             <li class="nav-item dropdown {{ setSidebarActive(['user.*']) }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Users</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['user.*']) }}">
                         <a class="nav-link" href="{{ route('user.index') }}">All User</a>
@@ -32,11 +27,13 @@
             </li>
 
             <li class="{{ setSidebarActive(['category.*']) }}"><a class="nav-link"
-                    href="{{ route('category.index') }}"><i class="far fa-square"></i> <span>Category</span></a>
+                    href="{{ route('category.index') }}"><i class="fas fa-list"></i><span>Category</span></a>
             </li>
 
             <li class="nav-item dropdown {{ setSidebarActive(['product.*']) }}">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Products</span></a>
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-cart-shopping"></i></><span>Products</span>
+                </a>
                 <ul class="dropdown-menu">
                     <li class="{{ setSidebarActive(['product.*']) }}">
                         <a class="nav-link" href="{{ route('product.index') }}">All Products</a>

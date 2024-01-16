@@ -26,3 +26,9 @@ Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout'
 
 //login
 Route::post('/login', [App\Http\Controllers\Api\AuthController::class, 'login']);
+
+//category
+Route::get('/categories', [App\Http\Controllers\Api\CategoryController::class, 'index']);
+
+//product
+Route::get('/products', [App\Http\Controllers\Api\ProductController::class, 'index']);

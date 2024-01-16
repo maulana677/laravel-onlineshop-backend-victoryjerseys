@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.category.create');
     }
 
     /**
@@ -29,7 +29,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:100'
+        ]);
+
+        $category = Category::create($validated);
+
+        toast('Category created successfully', 'success')->width('400');
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -45,7 +53,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('pages.category.edit', compact('category'));
     }
 
     /**
@@ -53,7 +62,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:100'
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update($validated);
+
+        toast('Category updated successfully', 'success')->width('400');
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -61,6 +79,12 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+            return response(['status' => 'success', 'message' => 'User successfully deleted']);
+        } catch (\Throwable $th) {
+            return response(['status' => 'error', 'message' => 'There is something wrong!']);
+        }
     }
 }
